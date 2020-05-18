@@ -3,7 +3,7 @@
     <v-app-bar color="primary" dark app>
       <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <router-link tag="span" to="/" :style="{ cursor: 'pointer' }">
-        <v-img class="mx-2" src="../../assets/yvd.png" max-height="50" max-width="50" contain></v-img>
+        <v-img class="mx-2" src="../../assets/yvd.png" max-height="90" max-width="90" contain></v-img>
       </router-link>
       <v-toolbar-title class="text-uppercase">
         <span class="font-weight-light">y2v</span>
