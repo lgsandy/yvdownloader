@@ -12,7 +12,7 @@
         :transition="transition"
       >
         <template v-slot:activator>
-          <v-btn v-model="fab" color="blue darken-2" dark fab>
+          <v-btn v-model="fab" color="#2925b4" dark fab>
             <v-icon v-if="fab">mdi-close</v-icon>
             <v-icon v-else>share</v-icon>
           </v-btn>
@@ -65,15 +65,15 @@ export default {
   name: "share",
   components: {},
   data: () => ({
-    direction: "bottom",
+    direction: "top",
     fab: false,
     fling: false,
     hover: true,
     tabs: null,
-    top: true,
-    right: true,
-    bottom: false,
-    left: false,
+    top: false,
+    right: false,
+    bottom: true,
+    left: true,
     transition: "slide-y-reverse-transition"
   }),
   computed: {
@@ -95,7 +95,7 @@ export default {
 <style>
 /* This is for documentation purposes and will not be needed in your application */
 #create .v-speed-dial {
-  position: absolute;
+  position: fixed;
 }
 
 #create .v-btn--floating {
