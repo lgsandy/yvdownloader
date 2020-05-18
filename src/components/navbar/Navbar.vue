@@ -1,13 +1,16 @@
 <template>
   <nav>
     <v-app-bar color="primary" dark app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <router-link tag="span" to="/" :style="{ cursor: 'pointer' }">
+        <v-img class="mx-2" src="../../assets/yvd.png" max-height="65" max-width="65" contain></v-img>
+      </router-link>
+      <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase">
-        <span class="font-weight-light">AAE</span>
-        <span>IdeaPro</span>
+        <span class="font-weight-light">yv</span>
+        <span>downloader</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-menu offset-y>
+      <!-- <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn text v-on="on">
             <v-icon left>expand_more</v-icon>
@@ -23,37 +26,44 @@
             active-class="border"
             link
           >
+            <v-list-item-action>
+              <v-icon :color="link.color">{{link.icon}}</v-icon>
+            </v-list-item-action>
             <v-list-item-title>{{link.text}}</v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-menu>
-      <router-link tag="span" to="/login">
-        <v-btn text>
-          <span>Exit</span>
-          <v-icon right>exit_to_app</v-icon>
+      </v-menu>-->
+      <router-link to="/" tag="span">
+        <v-btn text class="hidden-sm-and-down">
+          <span>Home</span>
+          <v-icon right color="teal">home</v-icon>
+        </v-btn>
+      </router-link>
+      <router-link to="/aboutus" tag="span">
+        <v-btn text class="hidden-sm-and-down">
+          <span>About Us</span>
+          <v-icon right color="orange">description</v-icon>
+        </v-btn>
+      </router-link>
+      <router-link to="/contactus" tag="span">
+        <v-btn text class="hidden-sm-and-down">
+          <span>Contact Us</span>
+          <v-icon right>contact_mail</v-icon>
         </v-btn>
       </router-link>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" dark app class="pink lighten-2" :mini-variant.sync="mini">
-      <!-- <v-layout column align-center>
-        <v-flex class="mt-5">
-          <v-avatar size="100">
-            <img src="/img1.png" alt />
-          </v-avatar>
-          <p class="white--text subheading mt-1 text-center">Username</p>
-        </v-flex>
-        <v-flex class="mt-4 mb-4">
-          <Popup />
-        </v-flex>
-      </v-layout>-->
-
+    <v-navigation-drawer
+      v-model="drawer"
+      dark
+      app
+      class="pink darken-3"
+      :mini-variant.sync="mini"
+      absolute
+      temporary
+    >
       <v-list flat>
         <v-list-item class="px-2" link>
-          <v-list-item-avatar>
-            <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
-          </v-list-item-avatar>
-
-          <v-list-item-title>John Leider</v-list-item-title>
+          <v-list-item-title>Menus</v-list-item-title>
 
           <v-btn icon @click.stop="mini = !mini">
             <v-icon>mdi-chevron-left</v-icon>
@@ -68,7 +78,7 @@
           active-class="border"
         >
           <v-list-item-action>
-            <v-icon>{{link.icon}}</v-icon>
+            <v-icon :color="link.color">{{link.icon}}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>{{link.text}}</v-list-item-title>
@@ -82,13 +92,23 @@
 <script>
 export default {
   data: () => ({
-    drawer: true,
+    drawer: false,
     links: [
-      { icon: "dashboard", text: "Dashboard", route: "/dashboard" },
-      { icon: "folder", text: "My Project", route: "/projects" },
-      { icon: "person", text: "Team", route: "/team" }
+      { icon: "home", text: "Home", color: "teal", route: "/" },
+      {
+        icon: "contacts",
+        text: "Contact Us",
+        color: "orange",
+        route: "/contactus"
+      },
+      {
+        icon: "description",
+        text: "About Us",
+        color: "yellow accent-2",
+        route: "/aboutus"
+      }
     ],
-    mini: true
+    mini: false
   }),
   components: {
     // Popup
