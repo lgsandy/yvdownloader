@@ -1,9 +1,7 @@
 <template>
   <div class="main">
     <h1 class="subheading grey--text">Home</h1>
-    <!-- <v-container> -->
-    <h1>Home Page</h1>
-    <!-- </v-container> -->
+    <v-container></v-container>
   </div>
 </template>
 
@@ -13,6 +11,9 @@
 export default {
   name: "main",
   components: {},
-  data: () => ({})
+  data: () => ({}),
+  computed: {},
+
+  watch: {}
 };
 </script>

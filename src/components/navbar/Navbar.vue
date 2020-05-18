@@ -1,10 +1,10 @@
 <template>
   <nav>
     <v-app-bar color="primary" dark app>
+      <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <router-link tag="span" to="/" :style="{ cursor: 'pointer' }">
         <v-img class="mx-2" src="../../assets/yvd.png" max-height="65" max-width="65" contain></v-img>
       </router-link>
-      <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase">
         <span class="font-weight-light">yv</span>
         <span>downloader</span>
