@@ -6,7 +6,7 @@
         <v-img class="mx-2" src="../../assets/yvd.png" max-height="50" max-width="50" contain></v-img>
       </router-link>
       <v-toolbar-title class="text-uppercase">
-        <span class="font-weight-light">yv</span>
+        <span class="font-weight-light">y2v</span>
         <span>downloader</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -43,12 +43,6 @@
         <v-btn text class="hidden-sm-and-down">
           <span>About Us</span>
           <v-icon right color="orange">description</v-icon>
-        </v-btn>
-      </router-link>
-      <router-link to="/contactus" tag="span">
-        <v-btn text class="hidden-sm-and-down">
-          <span>Contact Us</span>
-          <v-icon right>contact_mail</v-icon>
         </v-btn>
       </router-link>
     </v-app-bar>
@@ -95,12 +89,6 @@ export default {
     drawer: false,
     links: [
       { icon: "home", text: "Home", color: "teal", route: "/" },
-      {
-        icon: "contacts",
-        text: "Contact Us",
-        color: "orange",
-        route: "/contactus"
-      },
       {
         icon: "description",
         text: "About Us",

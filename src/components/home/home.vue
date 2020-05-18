@@ -2,13 +2,25 @@
   <div class="main">
    <v-container color="#f2f2ff"> 
       <v-row dense align="center" justify="center">
-     <v-col cols="12"  xs="12" md="6" sm="6" style="margin-bottom:-15px">
-        <v-text-field outlined dense v-model="youtubeUrl" label="paste Url Here" hide-details="auto"></v-text-field>
+        <!-- <h2>Download YouTube Videos And Thumbnail</h2> -->
+     <v-col cols="12"  xs="12" md="10" sm="6" style="margin-bottom:-15px">
+       <v-card elevation="2" >
+        <v-text-field outlined rounded flat dense v-model="youtubeUrl" label="paste Url Here" hide-details="auto" prepend-inner-icon="search" @focus="allowAutoPaste" @mouseover="allowAutoPaste"></v-text-field>
+       </v-card>
+        <!-- <v-text-field
+        flat
+        dense
+        solo-inverted
+        hide-details
+        prepend-inner-icon="search"
+        label="Search"
+        class="hidden-sm-and-down"
+      ></v-text-field> -->
         <span style="font-size: 12px;color: red;margin-left: 5px;" :style="[isInvalidUrl ? {'visibility': ''} : {'visibility': 'hidden'}]">We got invalid url</span>
       </v-col>
-   <v-col class="d-sm-block" style="display:flex;place-content:center;">
+   <!-- <v-col class="d-sm-block" style="display:flex;place-content:center;">
     <v-btn  color="primary" @click="getYoutubeData">Search</v-btn>
-   </v-col>
+   </v-col> -->
    </v-row>
 
    <!-- SHOWING THE VIDEO LIST -->
@@ -68,8 +80,8 @@
     margin-top: 15px;">How to download YouTube video (Instructions)</h1>
       </v-col>
     <v-row>
-    <v-col cols="12" xs="12" md="3" sm="6" v-for="vi of videoInstruction" :key="vi.title">
-     <v-card class="mx-auto" style="background-color:#2925b4;color:white" >
+    <v-col cols="12" xs="12" md="4" sm="6" v-for="vi of videoInstruction" :key="vi.title">
+     <v-card class="mx-auto" style="background-color:#2925b4;color:white;user-select:none" >
      <v-card-title class="cardinfoTitle">{{vi.title}}</v-card-title>
      <v-card-text style="color:white">
       <div>{{vi.description}}</div>
@@ -82,10 +94,10 @@
   <v-col class="text-center">
      <h1 style="color:#2925b4;font-family: cursive;margin-bottom: -10px;
     margin-top: 15px;">How to download YouTube Thumbnail (Instructions)</h1>
-      </v-col>
+    </v-col>
     <v-row>
-    <v-col cols="12" xs="12" md="3" sm="6" v-for="vi of thumbnailInstruction" :key="vi.title">
-     <v-card class="mx-auto" style="background-color:#2925b4;color:white" >
+    <v-col cols="12" xs="12" md="4" sm="6" v-for="vi of thumbnailInstruction" :key="vi.title">
+     <v-card class="mx-auto" style="background-color:#2925b4;color:white;user-select:none" >
      <v-card-title class="cardinfoTitle">{{vi.title}}</v-card-title>
      <v-card-text style="color:white">
       <div>{{vi.description}}</div>
@@ -98,7 +110,8 @@
      <v-dialog v-model="imagePreviewDialog" width="500">
       <v-card>
         <v-card-title
-          class="headline" color="#2925b4" style="color:white;place-content:center">
+          class="headline" style="place-content:center;background-color: #232476;
+         color: white;">
           IMAGE PREVIEW
         </v-card-title>
 
@@ -136,13 +149,13 @@ export default {
    videoId:"",
    isInvalidUrl:false,
    videoInstruction:[{title:"Copy URL",description:"Open youtube in your browser, search video and copy your video URL from YouTube"},
-     {title:"Focus in search field",description:"Paste YouTube video URL in the search field and click 'Search'. Use Ctrl+V or with the context menu."},
-     {title:"Click on Search",description:"Paste YouTube video URL in the search field and click 'Search'. Use Ctrl+V or with the context menu."},
-     {title:"Download Video",description:"You will get a list of files for download, video, and audio. Click the 'Download"}],
+     {title:"Focus in search field",description:"mouseover or focus into search field, auto Paste YouTube video URL in the search field "},
+    //  {title:"Click on Search",description:"Paste YouTube video URL in the search field and click 'Search'. Use Ctrl+V or with the context menu."},
+     {title:"Download Video",description:"You will get a list of video with quality  for download, video, and audio. Click the 'Download"}],
      thumbnailInstruction:[{title:"Copy URL",description:"Open youtube in your browser, search video and copy your video URL from YouTube"},
-     {title:"Focus in search field",description:"Paste YouTube video URL in the search field and click 'Search'. Use Ctrl+V or with the context menu."},
-     {title:"Click on Search",description:"Paste YouTube video URL in the search field and click 'Search'. Use Ctrl+V or with the context menu."},
-     {title:"Download Video",description:"You will get a list of files for download, video, and audio. Click the 'Download"}],
+     {title:"Focus in search field",description:"mouseover or focus into search field, auto Paste YouTube video URL in the search field "},
+    //  {title:"Click on Search",description:"Paste YouTube video URL in the search field and click 'Search'. Use Ctrl+V or with the context menu."},
+     {title:"Download Video",description:"You will get a list of thumbnail with quality for download, video, and audio. Click the 'Download"}],
    allFormateVideo:[],
    allFormateThumb:[],
    selectedCategory:'thumb',
@@ -172,7 +185,7 @@ methods:{
         this.isInvalidUrl=true;
         setTimeout(() => {
             this.isInvalidUrl=false;
-        }, 2000);
+        }, 4000);
         }
   },
   showThumbNail(){
@@ -223,6 +236,10 @@ methods:{
     previewThumbNail(thumb){
       this.imagePreviewDialog=true;
       this.currentPreviewImage=thumb.url;
+    },
+    async allowAutoPaste(){
+    this.youtubeUrl = await navigator.clipboard.readText();
+    this.getYoutubeData();
     }
 }
 };
