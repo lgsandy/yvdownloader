@@ -30,7 +30,8 @@
             aria-label="Search"
             append-icon="search"
             @focus="allowAutoPaste"
-            @mouseover="allowAutoPaste"
+            @click:append="getYoutubeData"
+            @keyup.enter="searchOnkeyDown"
           />
 
           <span
@@ -116,7 +117,7 @@
         >How to download YouTube video (Instructions)</h1>
       </v-col>
       <v-row>
-        <v-col cols="12" xs="12" md="4" sm="6" v-for="vi of videoInstruction" :key="vi.title">
+        <v-col cols="12" xs="12" md="3" sm="6" v-for="vi of videoInstruction" :key="vi.title">
           <v-card class="mx-auto" style="background-color:#2925b4;color:white;user-select:none">
             <v-card-title class="cardinfoTitle">{{vi.title}}</v-card-title>
             <v-card-text style="color:white">
@@ -134,7 +135,7 @@
         >How to download YouTube Thumbnail (Instructions)</h1>
       </v-col>
       <v-row>
-        <v-col cols="12" xs="12" md="4" sm="6" v-for="vi of thumbnailInstruction" :key="vi.title">
+        <v-col cols="12" xs="12" md="3" sm="6" v-for="vi of thumbnailInstruction" :key="vi.title">
           <v-card class="mx-auto" style="background-color:#2925b4;color:white;user-select:none">
             <v-card-title class="cardinfoTitle">{{vi.title}}</v-card-title>
             <v-card-text style="color:white">
@@ -185,13 +186,13 @@ export default {
       {
         title: "Focus in search field",
         description:
-          "mouseover or focus into search field, auto Paste YouTube video URL in the search field "
+          "mouseEnter or focus into search field, auto Paste YouTube video URL in the search field "
       },
-      //  {title:"Click on Search",description:"Paste YouTube video URL in the search field and click 'Search'. Use Ctrl+V or with the context menu."},
+        {title:"Click on Search",description:"click on search icon or press enter from your keyboard to get list of videos with different quality"},
       {
         title: "Download Video",
         description:
-          "You will get a list of video with quality  for download, video, and audio. Click the 'Download"
+          "You will get a list of video with quality  for download, for video. Click the Download button to start"
       }
     ],
     thumbnailInstruction: [
@@ -203,13 +204,13 @@ export default {
       {
         title: "Focus in search field",
         description:
-          "mouseover or focus into search field, auto Paste YouTube video URL in the search field "
+          "mouseEnter or focus into search field, auto Paste YouTube video URL in the search field "
       },
-      //  {title:"Click on Search",description:"Paste YouTube video URL in the search field and click 'Search'. Use Ctrl+V or with the context menu."},
+        {title:"Click on Search",description:"click on search icon or press enter from your keyboard to get list of thumbnail with different quality"},
       {
         title: "Download Video",
         description:
-          "You will get a list of thumbnail with quality for download, video, and audio. Click the 'Download"
+          "You will get a list of thumbnail with quality for download for video. Click the Download button to start"
       }
     ],
     allFormateVideo: [],
@@ -319,10 +320,21 @@ export default {
       this.currentPreviewImage = thumb.url;
     },
     async allowAutoPaste() {
+      if (!navigator.clipboard) {
+        return
+       }
+        try {
       this.youtubeUrl = await navigator.clipboard.readText();
-      this.getYoutubeData();
-    }
+        }catch (err) {
+       console.log('Failed to copy!', err)
+      }
+     // this.getYoutubeData();
+    },
+    searchOnkeyDown(){
+   this.getYoutubeData();
   }
+  }
+  
 };
 </script>
 <style scoped>
