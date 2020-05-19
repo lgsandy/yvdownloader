@@ -4,7 +4,7 @@
       <v-row dense align="center" justify="center">
         <!-- <h2>Download YouTube Videos And Thumbnail</h2> -->
 
-        <v-col cols="12" xs="12" md="10" sm="6" style="margin-bottom:-15px">
+        <v-col cols="12" xs="12" md="10" sm="10" style="margin-bottom:-15px">
           <!-- <v-card elevation="2">
             <v-text-field
               outlined
@@ -41,7 +41,7 @@
             :style="[isInvalidUrl ? {'visibility': ''} : {'visibility': 'hidden'}]"
           >We got invalid url</span>
         </v-col>
-        <v-col>
+        <v-col class="d-sm-flex text-center" >
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-icon
