@@ -3,6 +3,7 @@
     <v-container color="#f2f2ff">
       <v-row dense align="center" justify="center">
         <!-- <h2>Download YouTube Videos And Thumbnail</h2> -->
+
         <v-col cols="12" xs="12" md="10" sm="6" style="margin-bottom:-15px">
           <!-- <v-card elevation="2">
             <v-text-field
@@ -33,37 +34,60 @@
             @click:append="getYoutubeData"
             @keyup.enter="searchOnkeyDown"
           />
+          <!-- <v-switch v-model="people" label="Jo" value="John"></v-switch> -->
 
           <span
             style="font-size: 12px;color: red;margin-left: 5px;"
             :style="[isInvalidUrl ? {'visibility': ''} : {'visibility': 'hidden'}]"
           >We got invalid url</span>
         </v-col>
-        <!-- <v-col class="d-sm-block" style="display:flex;place-content:center;">
-    <v-btn  color="primary" @click="getYoutubeData">Search</v-btn>
-        </v-col>-->
+        <v-col>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-icon
+                v-on="on"
+                @click="userSelectedOption('video')"
+                :color="videoBtnColor"
+              >mdi-video</v-icon>
+            </template>
+            <span>Video Doenload</span>
+          </v-tooltip>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-icon
+                v-on="on"
+                @click="userSelectedOption('image')"
+                :color="imageBtnColor"
+              >mdi-file-image</v-icon>
+            </template>
+            <span>Thumbnail Download</span>
+          </v-tooltip>
+        </v-col>
       </v-row>
 
       <!-- SHOWING THE VIDEO LIST -->
       <v-row>
         <v-col cols="12" xs="12" md="6" sm="6" v-for="video of allFormateVideo" :key="video.name">
           <v-card class="mx-auto">
-            <v-img
-              class="white--text align-end"
-              height="200px"
-              src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-            >
+            <v-img class="white--text align-end" height="200px" :src="videoImage">
               <v-card-title>Top 10 Australian beaches</v-card-title>
             </v-img>
-            <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
-            <v-card-text class="text--primary">
-              <div>Whitehaven Beach</div>
-              <div>Whitsunday Island, Whitsunday Islands</div>
-            </v-card-text>
+            <v-card-subtitle
+              class="pb-0 text-center"
+              style="color: rgb(41, 37, 180);
+    font-size: 25px;"
+            >{{video.qualityLabel}}</v-card-subtitle>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn class="ma-2" tile outlined color="primary">Download</v-btn>
-              <v-btn class="ma-2" tile outlined color="primary">Preview</v-btn>
+              <v-btn
+                :href="video.url"
+                target="_blank"
+                class="ma-2"
+                tile
+                outlined
+                color="primary"
+              >Download</v-btn>
+              <!-- <v-btn class="ma-2" tile outlined color="primary">Preview</v-btn> -->
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -164,11 +188,20 @@
         </v-card>
       </v-dialog>
     </v-container>
+    <v-dialog v-model="loadingdialog" hide-overlay persistent width="300">
+      <v-card color="success" dark>
+        <v-card-text>
+          Loading...
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import axios from "axios";
 
 export default {
   name: "main",
@@ -188,7 +221,11 @@ export default {
         description:
           "mouseEnter or focus into search field, auto Paste YouTube video URL in the search field "
       },
-        {title:"Click on Search",description:"click on search icon or press enter from your keyboard to get list of videos with different quality"},
+      {
+        title: "Click on Search",
+        description:
+          "click on search icon or press enter from your keyboard to get list of videos with different quality"
+      },
       {
         title: "Download Video",
         description:
@@ -206,7 +243,11 @@ export default {
         description:
           "mouseEnter or focus into search field, auto Paste YouTube video URL in the search field "
       },
-        {title:"Click on Search",description:"click on search icon or press enter from your keyboard to get list of thumbnail with different quality"},
+      {
+        title: "Click on Search",
+        description:
+          "click on search icon or press enter from your keyboard to get list of thumbnail with different quality"
+      },
       {
         title: "Download Video",
         description:
@@ -215,9 +256,13 @@ export default {
     ],
     allFormateVideo: [],
     allFormateThumb: [],
-    selectedCategory: "thumb",
+    selectedCategory: "video",
     imagePreviewDialog: false,
-    currentPreviewImage: ""
+    currentPreviewImage: "",
+    videoImage: "",
+    videoBtnColor: "primary",
+    imageBtnColor: "",
+    loadingdialog: false
   }),
   methods: {
     getYoutubeData() {
@@ -235,12 +280,13 @@ export default {
         if (this.selectedCategory == "thumb") {
           this.showThumbNail();
         } else {
-          this.allFormateVideo = [
-            { name: "11" },
-            { name: "22" },
-            { name: "33" },
-            { name: "44" }
-          ];
+          this.getVideodetails();
+          // this.allFormateVideo = [
+          //   { name: "11" },
+          //   { name: "22" },
+          //   { name: "33" },
+          //   { name: "44" }
+          // ];
         }
       } else {
         this.isInvalidUrl = true;
@@ -321,20 +367,52 @@ export default {
     },
     async allowAutoPaste() {
       if (!navigator.clipboard) {
-        return
-       }
-        try {
-      this.youtubeUrl = await navigator.clipboard.readText();
-        }catch (err) {
-       console.log('Failed to copy!', err)
+        return;
       }
-     // this.getYoutubeData();
+      try {
+        this.youtubeUrl = await navigator.clipboard.readText();
+      } catch (err) {
+        console.log("Failed to copy!", err);
+      }
+      // this.getYoutubeData();
     },
-    searchOnkeyDown(){
-   this.getYoutubeData();
+    searchOnkeyDown() {
+      this.getYoutubeData();
+    },
+    getVideodetails() {
+      this.loadingdialog = true;
+      let details = {
+        url: this.videoId,
+        client: "sdkjfhdskjfhjkdsby2vkjdbfdbsfdbjhbfds"
+      };
+      axios
+        .post("http://localhost:4000/api/download", details)
+        .then(res => {
+          this.loadingdialog = false;
+          this.videoImage =
+            "https://i.ytimg.com/vi/" + this.videoId + "/hqdefault.jpg";
+          this.allFormateVideo = res.data.formats;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    userSelectedOption(option) {
+      this.imageBtnColor = "";
+      if (option == "video") {
+        this.videoBtnColor = "primary";
+        this.imageBtnColor = "";
+        this.selectedCategory = "video";
+        this.allFormateThumb = [];
+      } else {
+        this.videoBtnColor = "";
+        this.imageBtnColor = "primary";
+        this.allFormateVideo = [];
+        this.selectedCategory = "thumb";
+      }
+      this.getYoutubeData();
+    }
   }
-  }
-  
 };
 </script>
 <style scoped>

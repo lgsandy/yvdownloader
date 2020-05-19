@@ -5,10 +5,12 @@
       <router-link tag="span" to="/" :style="{ cursor: 'pointer' }">
         <v-img class="mx-2" src="../../assets/yvd.png" max-height="90" max-width="90" contain></v-img>
       </router-link>
+
       <v-toolbar-title class="text-uppercase">
         <span class="font-weight-light">y2v</span>
         <span>downloader</span>
       </v-toolbar-title>
+
       <v-spacer></v-spacer>
       <!-- <v-menu offset-y>
         <template v-slot:activator="{ on }">
