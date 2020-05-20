@@ -93,6 +93,30 @@
       </v-row>
       <!--END SHOWING THE VIDEO LIST -->
 
+
+      
+   <!-- SHOWING THE AUDIO LIST -->
+          <h2 v-if="allFormateAudio.length" style="color: white;padding: 10px;background: linear-gradient(to right, #181667 0%, #9e7fe4 100%);border-radius: 5px;text-align:center">Audios</h2> 
+      <v-row style="place-content:center">
+        <v-col cols="12" xs="12" md="6" sm="6" v-for="audio of allFormateAudio" :key="audio.approxDurationMs">
+          <v-card class="mx-auto text-center pt-2 pb-2">
+           <audio controls style="outline:none">
+          <source :src="audio.url" type="audio/mp4">
+           </audio>
+            <v-card-subtitle v-if="audio.itag == 140" class="pb-0 text-center" style="color: rgb(41, 37, 180);
+             font-size: 25px;"
+            >audio/mp4</v-card-subtitle>
+
+             <v-card-subtitle v-if="audio.itag != 140" class="pb-0 text-center" style="color: rgb(41, 37, 180);
+             font-size: 25px;"
+            >audio/webm</v-card-subtitle>
+          </v-card>
+        </v-col>
+      </v-row>
+      <!--END SHOWING THE AUDIO LIST -->
+
+
+
       <!-- SHOWING THE THUMBNAIL LIST -->
       <v-row>
         <v-col cols="12" xs="12" md="6" sm="6" v-for="thumb of allFormateThumb" :key="thumb.name">
@@ -284,7 +308,8 @@ export default {
     videoImage: "",
     videoBtnColor: "primary",
     imageBtnColor: "",
-    loadingdialog: false
+    loadingdialog: false,
+    allFormateAudio:[]
   }),
   methods: {
     getYoutubeData() {
@@ -416,7 +441,16 @@ export default {
           this.loadingdialog = false;
           this.videoImage =
             "https://i.ytimg.com/vi/" + this.videoId + "/hqdefault.jpg";
-          this.allFormateVideo = res.data.formats;
+           if(res.data && res.data.streamingData && res.data.streamingData.formats){
+             this.allFormateVideo = res.data.streamingData.formats;
+           }
+           if(res.data && res.data.streamingData && res.data.streamingData.adaptiveFormats){
+              let audios= res.data.streamingData.adaptiveFormats;
+              this.allFormateAudio =audios.filter((o)=>{return o.audioQuality == 'AUDIO_QUALITY_MEDIUM'});
+              console.log(this.allFormateAudio);
+           }
+
+           
         })
         .catch(err => {
           console.log(err);
