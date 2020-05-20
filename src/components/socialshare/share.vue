@@ -8,7 +8,7 @@
         :right="right"
         :left="left"
         :direction="direction"
-        :open-on-hover="hover"
+        :open-on-hover="click"
         :transition="transition"
       >
         <template v-slot:activator>
