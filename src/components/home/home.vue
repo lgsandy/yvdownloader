@@ -2,7 +2,7 @@
   <div class="main">
     <v-container color="#f2f2ff">
       <v-row dense align="center" justify="center">
-        <!-- <h2>Download YouTube Videos And Thumbnail</h2> -->
+        <h2 style="color: white;padding: 10px;background: linear-gradient(to right, #181667 0%, #9e7fe4 100%);border-radius: 5px;">Best YouTube Videos & Thumbnail Downloader</h2> 
 
         <v-col cols="12" xs="12" md="10" sm="10" style="margin-bottom:-15px">
           <!-- <v-card elevation="2">
@@ -66,11 +66,10 @@
       </v-row>
 
       <!-- SHOWING THE VIDEO LIST -->
-      <v-row>
+      <v-row style="place-content:center">
         <v-col cols="12" xs="12" md="6" sm="6" v-for="video of allFormateVideo" :key="video.name">
           <v-card class="mx-auto">
             <v-img class="white--text align-end" height="200px" :src="videoImage">
-              <v-card-title>Top 10 Australian beaches</v-card-title>
             </v-img>
             <v-card-subtitle
               class="pb-0 text-center"
@@ -188,7 +187,7 @@
       </v-dialog>
 
        <!-- VIDEO PREVIEW -->
-      <v-dialog v-model="videoPreviewDialog" width="500">
+      <v-dialog v-if="videoPreviewDialog" v-model="videoPreviewDialog" width="500">
         <v-card>
   
          <v-toolbar dark color="#232476" dense>
@@ -213,13 +212,8 @@
 
 
     </v-container>
-    <v-dialog v-model="loadingdialog" hide-overlay persistent width="300">
-      <v-card color="#232476" dark>
-        <v-card-text>
-          Loading...
-          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
-        </v-card-text>
-      </v-card>
+    <v-dialog v-model="loadingdialog" hide-overlay persistent width="150">
+         <v-img style="background-color: transparent;border-radius: 100px;" src="../../assets/loading.png"></v-img>
     </v-dialog>
 
   </div>
