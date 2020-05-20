@@ -187,7 +187,7 @@
       </v-dialog>
 
        <!-- VIDEO PREVIEW -->
-      <v-dialog v-if="videoPreviewDialog" v-model="videoPreviewDialog" width="500">
+      <v-dialog v-if="videoPreviewDialog" v-model="videoPreviewDialog" width="600">
         <v-card>
   
          <v-toolbar dark color="#232476" dense>
