@@ -288,17 +288,20 @@ export default {
   }),
   methods: {
     getYoutubeData() {
-      let isValid = this.validateYouTubeUrl(this.youtubeUrl);
-      if (isValid) {
-        let isValidUrl = this.youtubeUrl.includes("youtu.be");
-        if (isValidUrl) {
-          this.videoId = this.youtubeUrl.split("/")[3];
-        } else {
-          this.videoId = this.youtubeUrl.split("v=")[1];
-        }
-        if (this.videoId && this.videoId.length > 11) {
-          this.videoId = this.videoId.substr(0, 11);
-        }
+          if (this.validateYouTubeUrl(this.youtubeUrl)) {
+                let isValidUrl = this.youtubeUrl.includes("youtu.be");
+                if (isValidUrl) {
+                    this.videoId = this.youtubeUrl.split("/")[3];
+                  } 
+                else if(this.youtubeUrl.includes("embed")){
+                    this.videoId = this.youtubeUrl.split("/")[4]
+                }
+               else {
+                  this.videoId = this.youtubeUrl.split("v=")[1];
+                }
+                if (this.videoId && this.videoId.length > 11) {
+                  this.videoId = this.videoId.substr(0, 11);
+                }
         if (this.selectedCategory == "thumb") {
           this.showThumbNail();
         } else {

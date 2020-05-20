@@ -7,8 +7,10 @@
       </router-link>
 
       <v-toolbar-title class="text-uppercase">
+        <router-link tag="span" to="/" :style="{ cursor: 'pointer' }">
         <span class="font-weight-light">y2v</span>
         <span>downloader</span>
+          </router-link>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
