@@ -80,8 +80,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                :href="video.url"
-                target="_blank"
+                @click="showVideoPreview(video)"
                 class="ma-2"
                 tile
                 outlined
@@ -187,15 +186,42 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+       <!-- VIDEO PREVIEW -->
+      <v-dialog v-model="videoPreviewDialog" width="500">
+        <v-card>
+  
+         <v-toolbar dark color="#232476" dense>
+             <v-spacer></v-spacer>
+              <v-toolbar-title>VIDEO PREVIEW</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-btn icon dark @click="videoPreviewDialog = false">
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </v-toolbar>
+          <video width="100%" height="100%" controls>
+            <source :src="selectedVideoPreview" type="video/mp4">
+          </video>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <span style="color: #232476;font-weight: bold;">Press On<v-icon small>more_vert</v-icon> then press on download to start</span>
+            <v-spacer></v-spacer>
+            <!-- <v-btn color="primary" text @click="videoPreviewDialog = false">close</v-btn> -->
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+
     </v-container>
     <v-dialog v-model="loadingdialog" hide-overlay persistent width="300">
-      <v-card color="success" dark>
+      <v-card color="#232476" dark>
         <v-card-text>
           Loading...
           <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
         </v-card-text>
       </v-card>
     </v-dialog>
+
   </div>
 </template>
 
@@ -210,6 +236,8 @@ export default {
     youtubeUrl: "",
     videoId: "",
     isInvalidUrl: false,
+    videoPreviewDialog:false,
+    selectedVideoPreview:'',
     videoInstruction: [
       {
         title: "Copy URL",
@@ -386,7 +414,7 @@ export default {
         client: "sdkjfhdskjfhjkdsby2vkjdbfdbsfdbjhbfds"
       };
       axios
-        .post("http://localhost:4000/api/download", details)
+        .post("https://y2vdownloader.herokuapp.com/api/download", details)
         .then(res => {
           this.loadingdialog = false;
           this.videoImage =
@@ -411,6 +439,11 @@ export default {
         this.selectedCategory = "thumb";
       }
       this.getYoutubeData();
+    },
+    showVideoPreview(video){
+      this.selectedVideoPreview=video.url;
+      this.videoPreviewDialog=true;
+     console.log(video);
     }
   }
 };

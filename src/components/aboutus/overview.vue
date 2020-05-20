@@ -4,9 +4,7 @@
       <v-col class="cols" md="8">
         <div>
           <h3>This way to downlaod</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum maiores modi quidem veniam, expedita quis laboriosam, ullam facere adipisci, iusto, voluptate sapiente corrupti asperiores rem nemo numquam fuga ab at.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum maiores modi quidem veniam, expedita quis laboriosam, ullam facere adipisci, iusto, voluptate sapiente corrupti asperiores rem nemo numquam fuga ab at.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum maiores modi quidem veniam, expedita quis laboriosam, ullam facere adipisci, iusto, voluptate sapiente corrupti asperiores rem nemo numquam fuga ab at.</p>
+          <p>Search your video from youtube and select which you want to download , after selecting copy the url from addressbar with ctrl+c or with context menu, paste url in search field while focus on the search field and click on search button, then you will get list of video , click on download button after that popup will open click on three dot icon and then after click on download button to start downloading.</p>
         </div>
       </v-col>
       <v-col class="cols" md="4">
@@ -21,9 +19,7 @@
       </v-col>
       <v-col class="cols" md="8">
         <div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum maiores modi quidem veniam, expedita quis laboriosam, ullam facere adipisci, iusto, voluptate sapiente corrupti asperiores rem nemo numquam fuga ab at.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum maiores modi quidem veniam, expedita quis laboriosam, ullam facere adipisci, iusto, voluptate sapiente corrupti asperiores rem nemo numquam fuga ab at.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum maiores modi quidem veniam, expedita quis laboriosam, ullam facere adipisci, iusto, voluptate sapiente corrupti asperiores rem nemo numquam fuga ab at.</p>
+          <p>Search your video from youtube and select which you want to download , after selecting copy the url from addressbar with ctrl+c or with context menu, paste url in search field while focus on the search field and click on search button, then you will get list of video , click on download button after that popup will open click on three dot icon and then after click on download button to start downloading.</p>
         </div>
       </v-col>
     </v-row>

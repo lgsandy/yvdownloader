@@ -11,7 +11,7 @@
             <v-col
               cols="12"
               md="10"
-            >Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.</v-col>
+            >Search your video from youtube and select which you want to download , after selecting copy the url from addressbar with ctrl+c or with context menu, paste url in search field while focus on the search field and click on search button, then you will get list of video , click on download button after that popup will open click on three dot icon and then after click on download button to start downloading.</v-col>
             <v-col class="hidden-sm-and-down text-right" md="2">
               <v-icon size="64">mdi-calendar-text</v-icon>
             </v-col>
@@ -31,8 +31,7 @@
             <v-col
               cols="12"
               md="8"
-            >Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.</v-col>
-            <v-col cols="12" md="4">Lorem ipsum dolor sit amet, no nam oblique veritus.</v-col>
+            >Search your video from youtube and select which you want to download , after selecting copy the url from addressbar with ctrl+c or with context menu, paste url in search field while focus on the search field and click on search button, then you will get list of video , click on download button after that popup will open click on three dot icon and then after click on download button to start downloading.</v-col>
           </v-row>
         </v-container>
       </v-card>
@@ -51,7 +50,7 @@
               :key="n"
               cols="12"
               md="4"
-            >Lorem ipsum dolor sit amet, no nam oblique veritus no nam oblique.</v-col>
+            >Search your video from youtube and select which you want to download , after selecting copy the url from addressbar with ctrl+c or with context menu, paste url in search field while focus on the search field and click on search button, then you will get list of video , click on download button after that popup will open click on three dot icon and then after click on download button to start downloading.</v-col>
           </v-row>
         </v-container>
       </v-card>
@@ -71,7 +70,7 @@
             <v-col
               cols="12"
               md="10"
-            >Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus.</v-col>
+            >Search your video from youtube and select which you want to download , after selecting copy the url from addressbar with ctrl+c or with context menu, paste url in search field while focus on the search field and click on search button, then you will get list of video , click on download button after that popup will open click on three dot icon and then after click on download button to start downloading.</v-col>
           </v-row>
         </v-container>
       </v-card>
@@ -85,7 +84,7 @@
         </v-card-title>
         <v-container>
           <v-row>
-            <v-col>Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an salutandi sententiae.</v-col>
+            <v-col>Search your video from youtube and select which you want to download , after selecting copy the url from addressbar with ctrl+c or with context menu, paste url in search field while focus on the search field and click on search button, then you will get list of video , click on download button after that popup will open click on three dot icon and then after click on download button to start downloading.</v-col>
           </v-row>
         </v-container>
       </v-card>
