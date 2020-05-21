@@ -8,7 +8,7 @@
         :right="right"
         :left="left"
         :direction="direction"
-        :open-on-hover="click"
+        :open-on-hover="hover"
         :transition="transition"
       >
         <template v-slot:activator>
@@ -68,7 +68,7 @@ export default {
     direction: "top",
     fab: false,
     fling: false,
-    hover: true,
+    hover: false,
     tabs: null,
     top: false,
     right: false,

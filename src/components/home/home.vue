@@ -314,8 +314,10 @@ export default {
   methods: {
     getYoutubeData() {
           if (this.validateYouTubeUrl(this.youtubeUrl)) {
-                let isValidUrl = this.youtubeUrl.includes("youtu.be");
-                if (isValidUrl) {
+                if(this.youtubeUrl.includes("m.youtube.com")){
+                   this.videoId=this.youtubeUrl.split("v=")[1];
+                }
+                else if (this.youtubeUrl.includes("youtu.be")) {
                     this.videoId = this.youtubeUrl.split("/")[3];
                   } 
                 else if(this.youtubeUrl.includes("embed")){
@@ -327,6 +329,7 @@ export default {
                 if (this.videoId && this.videoId.length > 11) {
                   this.videoId = this.videoId.substr(0, 11);
                 }
+                console.log(this.videoId);
         if (this.selectedCategory == "thumb") {
           this.showThumbNail();
         } else {
@@ -467,6 +470,7 @@ export default {
         this.videoBtnColor = "";
         this.imageBtnColor = "primary";
         this.allFormateVideo = [];
+        this.allFormateAudio=[];
         this.selectedCategory = "thumb";
       }
       this.getYoutubeData();
