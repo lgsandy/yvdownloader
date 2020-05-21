@@ -12,18 +12,18 @@
         :transition="transition"
       >
         <template v-slot:activator>
-          <v-btn v-model="fab" color="#2925b4" dark fab>
+          <v-btn v-model="fab" color="#25b477" dark fab>
             <v-icon v-if="fab">mdi-close</v-icon>
             <v-icon v-else>share</v-icon>
           </v-btn>
         </template>
         <ShareNetwork
           network="whatsapp"
-          url="http://y2vdownloader.com/"
+          url="https://y2vdownloader.com/img/yvd.80a9d5c1.png"
           title="youtube video , thumbnail downloader"
           description="y2vdownloader is for downloading different formate of youtube video and thumbnail"
           quote="This is best and fast youtube video and thumbnail downloader"
-          hashtags="youtube video Downloader"
+          hashtags="y2vdownloader"
         >
           <v-btn fab dark small color="green">
             <v-icon>mdi-whatsapp</v-icon>
@@ -31,11 +31,11 @@
         </ShareNetwork>
         <ShareNetwork
           network="facebook"
-          url="http://y2vdownloader.com/"
-          title="youtube video , thumbnail downloader"
+          url="https://y2vdownloader.com/img/yvd.80a9d5c1.png"
+          title="https://y2vdownloader.com/"
           description="y2vdownloader is for downloading different formate of youtube video and thumbnail"
-          quote="This is best and fast youtube video and thumbnail downloader"
-          hashtags="youtube video Downloader"
+          quote="This is best and fast youtube video, audio and thumbnail downloader"
+          hashtags="y2vdownloader"
         >
           <v-btn fab dark small color="indigo">
             <v-icon>mdi-facebook</v-icon>
@@ -43,11 +43,11 @@
         </ShareNetwork>
         <ShareNetwork
           network="linkedin"
-          url="http://y2vdownloader.com"
-          title="youtube video , thumbnail downloader"
+          url="https://y2vdownloader.com/img/yvd.80a9d5c1.png"
+          title="https://y2vdownloader.com/"
           description="y2vdownloader is for downloading different formate of youtube video and thumbnail"
-          quote="This is best and fast youtube video and thumbnail downloader"
-          hashtags="youtube video Downloader"
+          quote="This is best and fast youtube video, audio and thumbnail downloader"
+          hashtags="y2vdownloader"
         >
           <v-btn fab dark small color="#0073B0">
             <v-icon>mdi-linkedin</v-icon>

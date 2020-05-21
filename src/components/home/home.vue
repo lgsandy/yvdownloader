@@ -239,7 +239,14 @@
     <v-dialog v-model="loadingdialog" hide-overlay persistent width="150">
          <v-img style="background-color: transparent;border-radius: 100px;" src="../../assets/loading.png"></v-img>
     </v-dialog>
-
+ <v-footer color="primary" dark>
+    <v-col
+      class="text-center"
+      cols="12"
+    >
+     Copyright &copy;  {{ new Date().getFullYear() }} All Right Reserved <strong>y2vdownloader.com</strong>
+    </v-col>
+  </v-footer>
   </div>
 </template>
 
