@@ -36,10 +36,11 @@
           />
           <!-- <v-switch v-model="people" label="Jo" value="John"></v-switch> -->
 
-          <span
+          <p
             style="font-size: 12px;color: red;margin-left: 5px;"
             :style="[isInvalidUrl ? {'visibility': ''} : {'visibility': 'hidden'}]"
-          >We got invalid url</span>
+          >We got invalid url</p>
+          <span> Example Url :- https://youtu.be/ccIwKXBZ8WE</span>
         </v-col>
         <v-col class="d-sm-flex text-center" >
           <v-tooltip bottom>
@@ -229,6 +230,7 @@
             <v-spacer></v-spacer>
             <span style="color: #232476;font-weight: bold;">Press On<v-icon small>more_vert</v-icon> then press on download to start</span>
             <v-spacer></v-spacer>
+                 <v-icon>mdi-arrow-up-bold</v-icon>
             <!-- <v-btn color="primary" text @click="videoPreviewDialog = false">close</v-btn> -->
           </v-card-actions>
         </v-card>
@@ -336,7 +338,7 @@ export default {
                 if (this.videoId && this.videoId.length > 11) {
                   this.videoId = this.videoId.substr(0, 11);
                 }
-                console.log(this.videoId);
+
         if (this.selectedCategory == "thumb") {
           this.showThumbNail();
         } else {
@@ -457,7 +459,6 @@ export default {
            if(res.data && res.data.streamingData && res.data.streamingData.adaptiveFormats){
               let audios= res.data.streamingData.adaptiveFormats;
               this.allFormateAudio =audios.filter((o)=>{return o.audioQuality == 'AUDIO_QUALITY_MEDIUM'});
-              console.log(this.allFormateAudio);
            }
 
            
@@ -485,7 +486,6 @@ export default {
     showVideoPreview(video){
       this.selectedVideoPreview=video.url;
       this.videoPreviewDialog=true;
-     console.log(video);
     }
   }
 };
