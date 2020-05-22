@@ -230,7 +230,7 @@
             <v-spacer></v-spacer>
             <span style="color: #232476;font-weight: bold;">Press On<v-icon small>more_vert</v-icon> then press on download to start</span>
             <v-spacer></v-spacer>
-                 <v-icon>mdi-arrow-up-bold</v-icon>
+                 <v-icon style="color:red">mdi-arrow-up-bold</v-icon>
             <!-- <v-btn color="primary" text @click="videoPreviewDialog = false">close</v-btn> -->
           </v-card-actions>
         </v-card>
@@ -239,7 +239,7 @@
 
     </v-container>
     <v-dialog v-model="loadingdialog" hide-overlay persistent width="150">
-         <v-img style="background-color: transparent;border-radius: 100px;" src="../../assets/loading.png"></v-img>
+         <v-img style="background-color: white;border-radius: 100px;" src="../../assets/loading.png"></v-img>
     </v-dialog>
  <v-footer color="primary" dark>
     <v-col
@@ -255,7 +255,6 @@
 <script>
 // @ is an alias to /src
 import axios from "axios";
-
 export default {
   name: "main",
   components: {},
@@ -338,23 +337,20 @@ export default {
                 if (this.videoId && this.videoId.length > 11) {
                   this.videoId = this.videoId.substr(0, 11);
                 }
-
+         
         if (this.selectedCategory == "thumb") {
           this.showThumbNail();
+           this.updateAnalytics('thumbSearch');
         } else {
           this.getVideodetails();
-          // this.allFormateVideo = [
-          //   { name: "11" },
-          //   { name: "22" },
-          //   { name: "33" },
-          //   { name: "44" }
-          // ];
+          this.updateAnalytics('videoSearch');
         }
       } else {
         this.isInvalidUrl = true;
         setTimeout(() => {
           this.isInvalidUrl = false;
         }, 4000);
+          this.updateAnalytics('urlInvalid');
       }
     },
     showThumbNail() {
@@ -426,6 +422,7 @@ export default {
     previewThumbNail(thumb) {
       this.imagePreviewDialog = true;
       this.currentPreviewImage = thumb.url;
+      this.updateAnalytics('thumbDownloadPreview');
     },
     async allowAutoPaste() {
       if (!navigator.clipboard) {
@@ -486,6 +483,14 @@ export default {
     showVideoPreview(video){
       this.selectedVideoPreview=video.url;
       this.videoPreviewDialog=true;
+      this.updateAnalytics('videoDownLoadPreview');
+    },
+    updateAnalytics(state){
+         if(document && document['gtag']){     
+              document['gtag']('config', 'UA-167146296-1',{
+               'page_path':state
+              });
+         }
     }
   }
 };
