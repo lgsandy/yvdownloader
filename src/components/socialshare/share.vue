@@ -19,7 +19,7 @@
         </template>
         <ShareNetwork
           network="whatsapp"
-          url="https://y2vdownloader.com/img/yvd.80a9d5c1.png"
+          url="https://y2vdownloader.com/"
           title="youtube video , thumbnail downloader"
           description="y2vdownloader is for downloading different formate of youtube video and thumbnail"
           quote="This is best and fast youtube video and thumbnail downloader"
