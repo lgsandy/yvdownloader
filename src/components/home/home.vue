@@ -51,7 +51,7 @@
                 :color="videoBtnColor"
               >mdi-video</v-icon>
             </template>
-            <span>Video Doenload</span>
+            <span>Video Download</span>
           </v-tooltip>
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
@@ -321,6 +321,7 @@ export default {
   }),
   methods: {
     getYoutubeData() {
+          this.youtubeUrl=this.youtubeUrl.trim();
           if (this.validateYouTubeUrl(this.youtubeUrl)) {
                 if(this.youtubeUrl.includes("m.youtube.com")){
                    this.videoId=this.youtubeUrl.split("v=")[1];
