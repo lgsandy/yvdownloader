@@ -2,24 +2,33 @@
   <div class="main">
     <v-container color="#f2f2ff">
       <v-row dense align="center" justify="center">
+    
         <h2 style="color: white;padding: 10px;background: linear-gradient(to right, #181667 0%, #9e7fe4 100%);border-radius: 5px;">Best YouTube Videos & Thumbnail Downloader</h2> 
-
+         
+        <v-col cols="12" align="center" justify="center">
+         <v-tooltip bottom>
+           <template v-slot:activator="{ on }">
+          <v-btn v-on="on" @click="userSelectedOption('video')" :color="videoBtnColor"><v-icon>mdi-youtube</v-icon></v-btn>
+           </template>
+           <span>youtube video</span>
+          </v-tooltip>
+         
+         <v-tooltip bottom>
+           <template v-slot:activator="{ on }">
+          <v-btn v-on="on" @click="userSelectedOption('facebook')"
+                :color="facebookBtnColor"><v-icon>mdi-facebook</v-icon></v-btn>
+                 </template>
+           <span>facebook video</span>
+          </v-tooltip>
+           <v-tooltip bottom>
+           <template v-slot:activator="{ on }">
+           <v-btn v-on="on" @click="userSelectedOption('thumb')"
+                :color="imageBtnColor"><v-icon>mdi-file-image</v-icon></v-btn>
+                      </template>
+           <span>youtube thumbnail</span>
+          </v-tooltip>
+        </v-col>          
         <v-col cols="12" xs="12" md="10" sm="10" style="margin-bottom:-15px">
-          <!-- <v-card elevation="2">
-            <v-text-field
-              outlined
-              rounded
-              flat
-              dense
-              v-model="youtubeUrl"
-              label="paste Url Here"
-              hide-details="auto"
-              prepend-inner-icon="search"
-              @focus="allowAutoPaste"
-              @mouseover="allowAutoPaste"
-            ></v-text-field>
-          </v-card>-->
-
           <v-text-field
             class="search-input"
             v-model="youtubeUrl"
@@ -42,7 +51,7 @@
           >We got invalid url</p>
           <span> Example Url :- https://youtu.be/ccIwKXBZ8WE</span>
         </v-col>
-        <v-col class="d-sm-flex text-center" >
+        <!-- <v-col class="d-sm-flex text-center" >
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-icon
@@ -63,37 +72,63 @@
             </template>
             <span>Thumbnail Download</span>
           </v-tooltip>
-        </v-col>
+        </v-col> -->
       </v-row>
 
       <!-- SHOWING THE VIDEO LIST -->
       <v-row style="place-content:center">
         <v-col cols="12" xs="12" md="6" sm="6" v-for="video of allFormateVideo" :key="video.name">
           <v-card class="mx-auto">
-            <v-img class="white--text align-end" height="200px" :src="videoImage">
-            </v-img>
-            <v-card-subtitle
-              class="pb-0 text-center"
-              style="color: rgb(41, 37, 180);
-    font-size: 25px;"
-            >{{video.qualityLabel}}</v-card-subtitle>
+            <!-- <v-img class="white--text align-end" height="200px" :src="videoImage">
+            </v-img> -->
+            <video id="previewyVideo" width="100%" height="100%" controls style="outline:none">
+              <source :src="video.url" type="video/mp4">
+             </video>
+               <v-card-actions>
+            <v-spacer></v-spacer>
+            <span style="color: #232476;font-weight: bold;">Press On<v-icon small>more_vert</v-icon> then press on download to start</span>
+            <v-spacer></v-spacer>
+                 <v-icon style="color:red">mdi-arrow-up-bold</v-icon>
+          </v-card-actions>
+            <v-card-subtitle class="pb-0 text-center" style="color: rgb(41, 37, 180);
+            font-size: 25px;">{{video.qualityLabel}}</v-card-subtitle>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn
-                @click="showVideoPreview(video)"
-                class="ma-2"
-                tile
-                outlined
-                color="primary"
-              >Download</v-btn>
-              <!-- <v-btn class="ma-2" tile outlined color="primary">Preview</v-btn> -->
+              <v-btn @click="showVideoPreview(video.url)" class="ma-2" tile outlined color="primary"
+              >Preview</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
       <!--END SHOWING THE VIDEO LIST -->
-
+<!-- SHOWING THE Facebook VIDEO LIST -->
+      <v-row style="place-content:center" v-if="allFormatefacebook && allFormatefacebook.download && allFormatefacebook.download.sd">
+        <v-col cols="12" xs="12" md="6" sm="10">
+          <v-card class="mx-auto">
+            <!-- <v-img class="white--text align-end" height="200px" :src="videoImage">
+            </v-img> -->
+             <video id="previewfVideo" width="100%" height="100%" controls style="outline:none">
+              <source :src="allFormatefacebook.download.sd" type="video/mp4">
+             </video>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <span style="color: #232476;font-weight: bold;">Press On<v-icon small>more_vert</v-icon> then press on download to start</span>
+            <v-spacer></v-spacer>
+                 <v-icon style="color:red">mdi-arrow-up-bold</v-icon>
+          </v-card-actions>
+            <v-card-subtitle class="pb-0 text-center" style="color: rgb(41, 37, 180);
+            font-size: 15px;">{{allFormatefacebook.title}}</v-card-subtitle>
+               <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn @click="showVideoPreview(allFormatefacebook.download.sd)" class="ma-2" tile outlined color="primary"
+              >Preview</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+      <!--END SHOWING THE Facebook VIDEO LIST -->
 
       
    <!-- SHOWING THE AUDIO LIST -->
@@ -101,7 +136,7 @@
       <v-row style="place-content:center">
         <v-col cols="12" xs="12" md="6" sm="6" v-for="audio of allFormateAudio" :key="audio.approxDurationMs">
           <v-card class="mx-auto text-center pt-2 pb-2">
-           <audio controls style="outline:none">
+           <audio controls style="outline:none;max-width:100%">
           <source :src="audio.url" type="audio/mp4">
            </audio>
             <v-card-subtitle v-if="audio.itag == 140" class="pb-0 text-center" style="color: rgb(41, 37, 180);
@@ -214,16 +249,15 @@
        <!-- VIDEO PREVIEW -->
       <v-dialog v-if="videoPreviewDialog" v-model="videoPreviewDialog" width="600">
         <v-card>
-  
          <v-toolbar dark color="#232476" dense>
              <v-spacer></v-spacer>
               <v-toolbar-title>VIDEO PREVIEW</v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn icon dark @click="videoPreviewDialog = false">
+              <v-btn icon dark @click="closevideoPreview">
                 <v-icon>mdi-close</v-icon>
               </v-btn>
             </v-toolbar>
-          <video width="100%" height="100%" controls>
+          <video id="previewVideo" width="100%" height="100%" controls>
             <source :src="selectedVideoPreview" type="video/mp4">
           </video>
           <v-card-actions>
@@ -235,8 +269,6 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-
-
     </v-container>
     <v-dialog v-model="loadingdialog" hide-overlay persistent width="150">
          <v-img style="background-color: white;border-radius: 100px;" src="../../assets/loading.png"></v-img>
@@ -316,12 +348,36 @@ export default {
     videoImage: "",
     videoBtnColor: "primary",
     imageBtnColor: "",
+    facebookBtnColor: "",
     loadingdialog: false,
-    allFormateAudio:[]
+    allFormateAudio:[],
+    allFormatefacebook:[],
+    storeinterval:'',
+    storefbinterval:'',
+    storeytinterval:'',
+    video:''
   }),
+   destroyed() {
+     clearInterval(this.storeinterval);
+     clearInterval(this.storefbinterval);
+     clearInterval(this.storeytinterval);
+     
+     
+   },
+   watch: {
+    videoPreviewDialog: function (val) {
+     if(val==false){
+        clearInterval(this.storeinterval);
+     }
+    },
+  },
   methods: {
     getYoutubeData() {
-          this.youtubeUrl=this.youtubeUrl.trim();
+       this.youtubeUrl=this.youtubeUrl.trim();
+        clearInterval(this.storeinterval);
+        clearInterval(this.storefbinterval);
+         clearInterval(this.storeytinterval);
+         if(this.selectedCategory == "video" || this.selectedCategory == "thumb"){
           if (this.validateYouTubeUrl(this.youtubeUrl)) {
                 if(this.youtubeUrl.includes("m.youtube.com")){
                    this.videoId=this.youtubeUrl.split("v=")[1];
@@ -347,12 +403,21 @@ export default {
           this.updateAnalytics('videoSearch');
         }
       } else {
+        if(this.youtubeUrl.includes("facebook")){
+           this.getFacebookVideo(); 
+           this.userSelectedOption('facebook','fbvalid');
+        }else{
         this.isInvalidUrl = true;
         setTimeout(() => {
           this.isInvalidUrl = false;
         }, 4000);
           this.updateAnalytics('urlInvalid');
+        }
       }
+      }else if(this.selectedCategory == "facebook"){
+        this.getFacebookVideo();  
+      }
+
     },
     showThumbNail() {
       this.allFormateThumb = [
@@ -439,6 +504,10 @@ export default {
     searchOnkeyDown() {
       this.getYoutubeData();
     },
+    closevideoPreview(){
+    this.videoPreviewDialog = false;
+     clearInterval(this.storeinterval);
+    },
     getVideodetails() {
       this.loadingdialog = true;
       let details = {
@@ -453,6 +522,14 @@ export default {
             "https://i.ytimg.com/vi/" + this.videoId + "/hqdefault.jpg";
            if(res.data && res.data.streamingData && res.data.streamingData.formats){
              this.allFormateVideo = res.data.streamingData.formats;
+              setTimeout(() => {
+             let yvideo=document.getElementById('previewyVideo');
+             yvideo.onplaying=()=> {
+             this.storeytinterval=setInterval(()=>{ 
+             this.updateAnalytics('youtubeplaying');
+              }, 2000);
+              };
+            }, 100);
            }
            if(res.data && res.data.streamingData && res.data.streamingData.adaptiveFormats){
               let audios= res.data.streamingData.adaptiveFormats;
@@ -465,25 +542,84 @@ export default {
           console.log(err);
         });
     },
-    userSelectedOption(option) {
+    getFacebookVideo(){
+      this.loadingdialog = true;
+      let details = {
+        url: this.youtubeUrl,
+        client: "sdkjfhdskjfhjkdsby2vkjdbfdbsfdbjhbfds"
+      };
+      axios
+        .post("https://y2vdownloader.herokuapp.com/api/download/fb", details)
+        .then(res => {
+          this.loadingdialog = false;
+          if(res && res.data && res.data.download && res.data.download.sd){
+            this.allFormatefacebook=res.data;
+              setTimeout(() => {
+             let fbvideo=document.getElementById('previewfVideo');
+             fbvideo.onplaying=()=> {
+             this.storefbinterval=setInterval(()=>{ 
+             this.updateAnalytics('fbplaying');
+              }, 2000);
+              };
+            }, 100);
+
+          }else{
+              this.isInvalidUrl = true;
+        setTimeout(() => {
+          this.isInvalidUrl = false;
+        }, 4000);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          this.isInvalidUrl = true;
+        setTimeout(() => {
+          this.isInvalidUrl = false;
+        }, 4000);
+        });
+    },
+    userSelectedOption(option,state) {
       this.imageBtnColor = "";
       if (option == "video") {
         this.videoBtnColor = "primary";
         this.imageBtnColor = "";
+        this.facebookBtnColor='';
         this.selectedCategory = "video";
         this.allFormateThumb = [];
-      } else {
+         this.allFormatefacebook=[];
+      } else if(option == 'thumb') {
         this.videoBtnColor = "";
+        this.facebookBtnColor='';
         this.imageBtnColor = "primary";
         this.allFormateVideo = [];
         this.allFormateAudio=[];
+        this.allFormatefacebook=[];
         this.selectedCategory = "thumb";
+      }else if(option == 'facebook'){
+        this.facebookBtnColor='primary';
+        this.videoBtnColor ='';
+         this.imageBtnColor = "";
+          this.allFormateVideo = [];
+        this.allFormateAudio=[];
+          this.allFormateThumb = [];
+        this.selectedCategory = "facebook";
       }
-      this.getYoutubeData();
+     if(state == undefined){ 
+     this.youtubeUrl='';
+     }
     },
     showVideoPreview(video){
-      this.selectedVideoPreview=video.url;
+      this.selectedVideoPreview=video;
       this.videoPreviewDialog=true;
+      setTimeout(() => {
+         this.video=document.getElementById('previewVideo');
+          this.video.onplaying=()=> {
+           this.storeinterval=setInterval(()=>{ 
+             this.updateAnalytics('playing');
+              }, 2000);
+          };
+      }, 100);
+     
       this.updateAnalytics('videoDownLoadPreview');
     },
     updateAnalytics(state){
