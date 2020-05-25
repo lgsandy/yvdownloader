@@ -75,7 +75,7 @@
         </v-col> -->
       </v-row>
 
-      <!-- SHOWING THE VIDEO LIST -->
+      <!-- SHOWING THE YOUTUBE VIDEO LIST -->
       <v-row style="place-content:center">
         <v-col cols="12" xs="12" md="6" sm="6" v-for="video of allFormateVideo" :key="video.name">
           <v-card class="mx-auto">
@@ -88,7 +88,7 @@
             <v-spacer></v-spacer>
             <span style="color: #232476;font-weight: bold;">Press On<v-icon small>more_vert</v-icon> then press on download to start</span>
             <v-spacer></v-spacer>
-                 <v-icon style="color:red">mdi-arrow-up-bold</v-icon>
+                 <v-icon id="arrowAnimation" style="color:red">mdi-arrow-up-bold</v-icon>
           </v-card-actions>
             <v-card-subtitle class="pb-0 text-center" style="color: rgb(41, 37, 180);
             font-size: 25px;">{{video.qualityLabel}}</v-card-subtitle>
@@ -115,7 +115,7 @@
             <v-spacer></v-spacer>
             <span style="color: #232476;font-weight: bold;">Press On<v-icon small>more_vert</v-icon> then press on download to start</span>
             <v-spacer></v-spacer>
-                 <v-icon style="color:red">mdi-arrow-up-bold</v-icon>
+                 <v-icon id="arrowAnimation"  style="color:red">mdi-arrow-up-bold</v-icon>
           </v-card-actions>
             <v-card-subtitle class="pb-0 text-center" style="color: rgb(41, 37, 180);
             font-size: 15px;">{{allFormatefacebook.title}}</v-card-subtitle>
@@ -141,7 +141,7 @@
            </audio>
             <v-card-subtitle v-if="audio.itag == 140" class="pb-0 text-center" style="color: rgb(41, 37, 180);
              font-size: 25px;"
-            >audio/mp4</v-card-subtitle>
+            >audio/mp3</v-card-subtitle>
 
              <v-card-subtitle v-if="audio.itag != 140" class="pb-0 text-center" style="color: rgb(41, 37, 180);
              font-size: 25px;"
@@ -264,7 +264,7 @@
             <v-spacer></v-spacer>
             <span style="color: #232476;font-weight: bold;">Press On<v-icon small>more_vert</v-icon> then press on download to start</span>
             <v-spacer></v-spacer>
-                 <v-icon style="color:red">mdi-arrow-up-bold</v-icon>
+                 <v-icon id="arrowAnimation" style="color:red">mdi-arrow-up-bold</v-icon>
             <!-- <v-btn color="primary" text @click="videoPreviewDialog = false">close</v-btn> -->
           </v-card-actions>
         </v-card>
@@ -378,7 +378,19 @@ export default {
         clearInterval(this.storefbinterval);
          clearInterval(this.storeytinterval);
          if(this.selectedCategory == "video" || this.selectedCategory == "thumb"){
-          if (this.validateYouTubeUrl(this.youtubeUrl)) {
+          this.checkYoutube(); 
+        }else if(this.selectedCategory == "facebook"){
+           if (this.validateYouTubeUrl(this.youtubeUrl)) {
+             this.checkYoutube(); 
+              this.userSelectedOption('video','fbvalid');
+           }else{
+            this.getFacebookVideo();  
+           } 
+      }
+
+    },
+    checkYoutube(){
+     if (this.validateYouTubeUrl(this.youtubeUrl)) {
                 if(this.youtubeUrl.includes("m.youtube.com")){
                    this.videoId=this.youtubeUrl.split("v=")[1];
                 }
@@ -399,6 +411,7 @@ export default {
           this.showThumbNail();
            this.updateAnalytics('thumbSearch');
         } else {
+          this.allFormateVideo=[];
           this.getVideodetails();
           this.updateAnalytics('videoSearch');
         }
@@ -414,10 +427,6 @@ export default {
           this.updateAnalytics('urlInvalid');
         }
       }
-      }else if(this.selectedCategory == "facebook"){
-        this.getFacebookVideo();  
-      }
-
     },
     showThumbNail() {
       this.allFormateThumb = [
@@ -509,6 +518,7 @@ export default {
      clearInterval(this.storeinterval);
     },
     getVideodetails() {
+ 
       this.loadingdialog = true;
       let details = {
         url: this.videoId,
@@ -543,6 +553,7 @@ export default {
         });
     },
     getFacebookVideo(){
+       this.allFormatefacebook=[];
       this.loadingdialog = true;
       let details = {
         url: this.youtubeUrl,
@@ -637,5 +648,20 @@ export default {
   font-family: cursive;
   place-content: center;
   font-weight: bold;
+}
+@keyframes fontbulger {
+ 0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-40px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+#arrowAnimation {
+   animation: fontbulger 2s infinite;
 }
 </style>
