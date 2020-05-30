@@ -541,6 +541,7 @@ export default {
             //   };
             // }, 100);
            }
+           
            if(res.data && res.data.streamingData && res.data.streamingData.adaptiveFormats){
               let audios= res.data.streamingData.adaptiveFormats;
               this.allFormateAudio =audios.filter((o)=>{return o.audioQuality == 'AUDIO_QUALITY_MEDIUM'});
@@ -622,14 +623,14 @@ export default {
     showVideoPreview(video){
       this.selectedVideoPreview=video;
       this.videoPreviewDialog=true;
-      // setTimeout(() => {
-      //    this.video=document.getElementById('previewVideo');
-      //     this.video.onplaying=()=> {
-      //      this.storeinterval=setInterval(()=>{ 
-      //        this.updateAnalytics('playing');
-      //         }, 2000);
-      //     };
-      // }, 100);
+      setTimeout(() => {
+         this.video=document.getElementById('previewVideo');
+          this.video.onplaying=()=> {
+           this.storeinterval=setInterval(()=>{ 
+             this.updateAnalytics('playing');
+              }, 2000);
+          };
+      }, 100);
      
       this.updateAnalytics('videoDownLoadPreview');
     },
