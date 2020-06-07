@@ -532,14 +532,14 @@ export default {
             "https://i.ytimg.com/vi/" + this.videoId + "/hqdefault.jpg";
            if(res.data && res.data.streamingData && res.data.streamingData.formats){
              this.allFormateVideo = res.data.streamingData.formats;
-            //   setTimeout(() => {
-            //  let yvideo=document.getElementById('previewyVideo');
-            //  yvideo.onplaying=()=> {
-            //  this.storeytinterval=setInterval(()=>{ 
-            //  this.updateAnalytics('youtubeplaying');
-            //   }, 2000);
-            //   };
-            // }, 100);
+              setTimeout(() => {
+             let yvideo=document.getElementById('previewyVideo');
+             yvideo.onplaying=()=> {
+             this.storeytinterval=setInterval(()=>{ 
+             this.updateAnalytics('youtubeplaying');
+              }, 2000);
+              };
+            }, 100);
            }
            
            if(res.data && res.data.streamingData && res.data.streamingData.adaptiveFormats){
@@ -566,14 +566,14 @@ export default {
           this.loadingdialog = false;
           if(res && res.data && res.data.download && res.data.download.sd){
             this.allFormatefacebook=res.data;
-            //   setTimeout(() => {
-            //  let fbvideo=document.getElementById('previewfVideo');
-            //  fbvideo.onplaying=()=> {
-            //  this.storefbinterval=setInterval(()=>{ 
-            //  this.updateAnalytics('fbplaying');
-            //   }, 2000);
-            //   };
-            // }, 100);
+              setTimeout(() => {
+             let fbvideo=document.getElementById('previewfVideo');
+             fbvideo.onplaying=()=> {
+             this.storefbinterval=setInterval(()=>{ 
+             this.updateAnalytics('fbplaying');
+              }, 2000);
+              };
+            }, 100);
 
           }else{
               this.isInvalidUrl = true;
